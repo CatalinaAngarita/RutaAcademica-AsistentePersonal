@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Académica - Asistente Personal</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logo">Ruta Académica</h1>
+                <ul class="nav-menu">
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#materias">Materias</a></li>
+                    <li><a href="#notas">Notas</a></li>
+                    <li><a href="#asistencias">Asistencias</a></li>
+                    <li><a href="#alertas">Alertas</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="dashboard" class="section">
+            <h2>Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Promedio General</h3>
+                    <p class="stat-value" id="promedio-general">0.00</p>
+                </div>
+                <div class="card">
+                    <h3>Materias Cursando</h3>
+                    <p class="stat-value" id="materias-cursando">0</p>
+                </div>
+                <div class="card">
+                    <h3>Asistencia Promedio</h3>
+                    <p class="stat-value" id="asistencia-promedio">0%</p>
+                </div>
+                <div class="card">
+                    <h3>Alertas Activas</h3>
+                    <p class="stat-value" id="alertas-activas">0</p>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="progreso-chart"></canvas>
+            </div>
+        </section>
+
+        <section id="materias" class="section">
+            <h2>Materias</h2>
+            <div class="materias-container">
+                <div class="card">
+                    <h3>Malla Curricular</h3>
+                    <div id="malla-curricular">
+                        <!-- Se cargará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="notas" class="section">
+            <h2>Registro de Notas</h2>
+            <div class="form-container">
+                <form id="nota-form">
+                    <div class="form-group">
+                        <label for="materia-select">Materia:</label>
+                        <select id="materia-select" required>
+                            <option value="">Seleccione una materia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nota-input">Nota:</label>
+                        <input type="number" id="nota-input" min="0" max="20" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="porcentaje-input">Porcentaje:</label>
+                        <input type="number" id="porcentaje-input" min="0" max="100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar Nota</button>
+                </form>
+            </div>
+            <div class="notas-list" id="notas-list">
+                <!-- Se cargará dinámicamente -->
+            </div>
+        </section>
+
+        <section id="asistencias" class="section">
+            <h2>Registro de Asistencias</h2>
+            <div class="form-container">
+                <form id="asistencia-form">
+                    <div class="form-group">
+                        <label for="asistencia-materia-select">Materia:</label>
+                        <select id="asistencia-materia-select" required>
+                            <option value="">Seleccione una materia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-input">Fecha:</label>
+                        <input type="date" id="fecha-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="asistio-input">Asistió:</label>
+                        <input type="checkbox" id="asistio-input">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
+                </form>
+            </div>
+            <div class="asistencias-list" id="asistencias-list">
+                <!-- Se cargará dinámicamente -->
+            </div>
+        </section>
+
+        <section id="alertas" class="section">
+            <h2>Alertas Personalizadas</h2>
+            <div class="alertas-container" id="alertas-container">
+                <!-- Se cargará dinámicamente -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Ruta Académica - Asistente Personal. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
+
