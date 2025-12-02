@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,18 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n+^z2x287j3_20%-lesr&8(qhhe+q7ev$yctp$7wj&!ssvbz_e'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'unfold',  # Django Unfold - Admin moderno (debe ir antes de django.contrib.admin)
+    'unfold.contrib.filters',  # Filtros adicionales de unfold
+    'django.contrib.admin',  # Admin de Django (reemplazado automáticamente por unfold)
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -79,12 +82,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# Configuración de PostgreSQL - Todas las variables desde archivo .env
+# IMPORTANTE: Todas las variables deben estar definidas en el archivo .env
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DATABASE_HOST'),
+        'PORT': config('DATABASE_PORT'),
+        'OPTIONS': {
+            'connect_timeout': 10,
+        },
+}
 }
 
 
@@ -123,8 +134,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Para producción
 STATICFILES_DIRS = [
     BASE_DIR.parent / 'frontend',
+]
+
+# Configuración de archivos estáticos
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 # Default primary key field type
@@ -153,3 +171,34 @@ REST_FRAMEWORK = {
 #     "http://127.0.0.1:8080",
 # ]
 # CORS_ALLOW_CREDENTIALS = True
+
+# Django Unfold Configuration - Diseño mejorado
+UNFOLD = {
+    "SITE_TITLE": "Ruta Académica - Administración",
+    "SITE_HEADER": "Ruta Académica",
+    "SITE_URL": "/",
+    "SITE_SYMBOL": "school",  # Icono de escuela/educación
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    # Colores personalizados - Tema azul profesional
+    "COLORS": {
+        "primary": {
+            "50": "240 249 255",
+            "100": "224 242 254",
+            "200": "186 230 253",
+            "300": "125 211 252",
+            "400": "56 189 248",
+            "500": "14 165 233",
+            "600": "2 132 199",
+            "700": "3 105 161",
+            "800": "7 89 133",
+            "900": "12 74 110",
+            "950": "8 47 73",
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": True,  # Mostrar aplicaciones
+        "navigation_show_all": False,  # No duplicar en navegación personalizada
+    },
+}
