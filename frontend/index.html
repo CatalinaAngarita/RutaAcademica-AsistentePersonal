@@ -11,20 +11,155 @@
         <nav class="navbar">
             <div class="container">
                 <h1 class="logo">Ruta Académica</h1>
-                <ul class="nav-menu">
-                    <li><a href="#dashboard">Dashboard</a></li>
-                    <li><a href="#materias">Materias</a></li>
-                    <li><a href="#notas">Notas</a></li>
-                    <li><a href="#asistencias">Asistencias</a></li>
-                    <li><a href="#alertas">Alertas</a></li>
-                </ul>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <ul class="nav-menu" id="nav-menu" style="display: none;">
+                        <li><a href="#perfil">Perfil</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#materias">Materias</a></li>
+                        <li><a href="#notas">Notas</a></li>
+                        <li><a href="#asistencias">Asistencias</a></li>
+                        <li><a href="#alertas">Alertas</a></li>
+                        <li><a href="#" id="logout-btn">Cerrar Sesión</a></li>
+                    </ul>
+                    <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
             </div>
         </nav>
     </header>
 
-    <main class="container">
+    <!-- Páginas de Login y Registro -->
+    <div id="auth-pages" style="display: none; min-height: 100vh;">
+        <!-- Página de Login -->
+        <div id="login-page" class="auth-page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h1 class="auth-title">👋 Bienvenido de nuevo</h1>
+                        <p class="auth-subtitle">Inicia sesión en tu cuenta</p>
+                    </div>
+                    <form id="login-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="login-username">👤 Usuario:</label>
+                            <input type="text" id="login-username" required autocomplete="username" placeholder="Ingresa tu usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">🔒 Contraseña:</label>
+                            <input type="password" id="login-password" required autocomplete="current-password" placeholder="Ingresa tu contraseña">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: 0.5rem;">
+                            Iniciar Sesión
+                        </button>
+                        <p class="auth-link">
+                            ¿No tienes cuenta? <a href="#" id="show-register">Regístrate aquí</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página de Registro -->
+        <div id="register-page" class="auth-page" style="display: none;">
+            <div class="auth-container" style="max-width: 600px;">
+                <div class="auth-card">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h1 class="auth-title">🎓 Únete a Ruta Académica</h1>
+                        <p class="auth-subtitle">Crea tu cuenta de estudiante</p>
+                    </div>
+                    <form id="register-form" class="auth-form">
+                        <div class="asistencia-form-row">
+                            <div class="form-group">
+                                <label for="register-first-name">👤 Nombre:</label>
+                                <input type="text" id="register-first-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-last-name">👤 Apellido:</label>
+                                <input type="text" id="register-last-name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-username">👤 Usuario:</label>
+                            <input type="text" id="register-username" required autocomplete="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">📧 Email:</label>
+                            <input type="email" id="register-email" required autocomplete="email">
+                        </div>
+                        <div class="asistencia-form-row">
+                            <div class="form-group">
+                                <label for="register-password">🔒 Contraseña:</label>
+                                <input type="password" id="register-password" required autocomplete="new-password">
+                            </div>
+                            <div class="form-group">
+                                <label for="register-codigo">🎓 Código de Estudiante:</label>
+                                <input type="text" id="register-codigo" required>
+                            </div>
+                        </div>
+                        <div class="asistencia-form-row">
+                            <div class="form-group">
+                                <label for="register-carrera">📚 Carrera:</label>
+                                <select id="register-carrera" required>
+                                    <option value="">Seleccione una carrera</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-semestre">📅 Semestre Actual:</label>
+                                <input type="number" id="register-semestre" min="1" max="20" value="1" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: 0.5rem;">
+                            Registrarse
+                        </button>
+                        <p class="auth-link">
+                            ¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión aquí</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container" id="main-content" style="display: none;">
+        <!-- Sección de Perfil con Bienvenida -->
+        <section id="perfil" class="section profile-section">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <span id="profile-initials">👤</span>
+                </div>
+                <div class="profile-info">
+                    <h2 id="profile-welcome">¡Bienvenido!</h2>
+                    <p id="profile-name" class="profile-name">Cargando...</p>
+                    <p id="profile-details" class="profile-details">Cargando información...</p>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="profile-stat-card">
+                    <span class="stat-icon">🎓</span>
+                    <div>
+                        <p class="stat-label">Carrera</p>
+                        <p class="stat-value-small" id="profile-carrera">-</p>
+                    </div>
+                </div>
+                <div class="profile-stat-card">
+                    <span class="stat-icon">📅</span>
+                    <div>
+                        <p class="stat-label">Semestre</p>
+                        <p class="stat-value-small" id="profile-semestre">-</p>
+                    </div>
+                </div>
+                <div class="profile-stat-card">
+                    <span class="stat-icon">📧</span>
+                    <div style="flex: 1; min-width: 0;">
+                        <p class="stat-label">Email</p>
+                        <p class="stat-value-small" id="profile-email" style="font-size: 1.1rem; word-break: break-all; overflow-wrap: break-word;">-</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="dashboard" class="section">
-            <h2>Dashboard</h2>
+            <h2>📊 Dashboard</h2>
             <div class="dashboard-grid">
                 <div class="card">
                     <h3>Promedio General</h3>
@@ -49,7 +184,7 @@
         </section>
 
         <section id="materias" class="section">
-            <h2>Materias</h2>
+            <h2>📚 Materias</h2>
             <div class="materias-container">
                 <div class="card">
                     <h3>Malla Curricular</h3>
@@ -61,24 +196,28 @@
         </section>
 
         <section id="notas" class="section">
-            <h2>Registro de Notas</h2>
+            <h2>📝 Registro de Notas</h2>
             <div class="form-container">
                 <form id="nota-form">
-                    <div class="form-group">
-                        <label for="materia-select">Materia:</label>
-                        <select id="materia-select" required>
-                            <option value="">Seleccione una materia</option>
-                        </select>
+                    <div class="asistencia-form-row">
+                        <div class="form-group">
+                            <label for="materia-select">📚 Materia:</label>
+                            <select id="materia-select" required>
+                                <option value="">Seleccione una materia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nota-input">📊 Nota (0-20):</label>
+                            <input type="number" id="nota-input" min="0" max="20" step="0.01" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="nota-input">Nota:</label>
-                        <input type="number" id="nota-input" min="0" max="20" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="porcentaje-input">Porcentaje:</label>
+                        <label for="porcentaje-input">📈 Porcentaje (0-100%):</label>
                         <input type="number" id="porcentaje-input" min="0" max="100" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar Nota</button>
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <span>💾</span> Registrar Nota
+                    </button>
                 </form>
             </div>
             <div class="notas-list" id="notas-list">
@@ -87,33 +226,54 @@
         </section>
 
         <section id="asistencias" class="section">
-            <h2>Registro de Asistencias</h2>
-            <div class="form-container">
+            <h2>📅 Registro de Asistencias</h2>
+            
+            <!-- Acciones rápidas por materia -->
+            <div class="asistencias-quick-actions" id="asistencias-quick-actions">
+                <!-- Se cargará dinámicamente con tarjetas de materias -->
+            </div>
+
+            <!-- Formulario tradicional (alternativo) -->
+            <div class="asistencia-form-modern">
+                <h3 style="margin-bottom: 1.5rem; color: var(--dark-color); font-size: 1.5rem;">Registro Manual</h3>
                 <form id="asistencia-form">
-                    <div class="form-group">
-                        <label for="asistencia-materia-select">Materia:</label>
-                        <select id="asistencia-materia-select" required>
-                            <option value="">Seleccione una materia</option>
-                        </select>
+                    <div class="asistencia-form-row">
+                        <div class="form-group">
+                            <label for="asistencia-materia-select">📚 Materia:</label>
+                            <select id="asistencia-materia-select" required>
+                                <option value="">Seleccione una materia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha-input">📆 Fecha:</label>
+                            <input type="date" id="fecha-input" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="fecha-input">Fecha:</label>
-                        <input type="date" id="fecha-input" required>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" id="asistio-input" style="width: 24px; height: 24px; cursor: pointer;">
+                            <span style="font-size: 1.1rem;">✓ Marcar como presente</span>
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <label for="asistio-input">Asistió:</label>
-                        <input type="checkbox" id="asistio-input">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <span>💾</span> Registrar Asistencia
+                    </button>
                 </form>
             </div>
-            <div class="asistencias-list" id="asistencias-list">
-                <!-- Se cargará dinámicamente -->
+
+            <!-- Historial de asistencias -->
+            <div style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--dark-color); font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>📋</span> Historial de Asistencias
+                </h3>
+                <div class="asistencias-list" id="asistencias-list">
+                    <!-- Se cargará dinámicamente -->
+                </div>
             </div>
         </section>
 
         <section id="alertas" class="section">
-            <h2>Alertas Personalizadas</h2>
+            <h2>🔔 Alertas Personalizadas</h2>
             <div class="alertas-container" id="alertas-container">
                 <!-- Se cargará dinámicamente -->
             </div>
