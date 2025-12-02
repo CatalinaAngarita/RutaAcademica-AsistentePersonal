@@ -198,7 +198,58 @@ UNFOLD = {
     },
     "SIDEBAR": {
         "show_search": True,
-        "show_all_applications": True,  # Mostrar aplicaciones
-        "navigation_show_all": False,  # No duplicar en navegación personalizada
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": "Gestión Académica",
+                "items": [
+                    {
+                        "title": "Estudiantes",
+                        "icon": "people",
+                        "link": "/admin/estudiantes/estudiante/",
+                    },
+                    {
+                        "title": "Materias",
+                        "icon": "book",
+                        "link": "/admin/materias/materia/",
+                    },
+                    {
+                        "title": "Notas",
+                        "icon": "grade",
+                        "link": "/admin/notas/nota/",
+                    },
+                    {
+                        "title": "Asistencias",
+                        "icon": "event",
+                        "link": "/admin/asistencias/asistencia/",
+                    },
+                ],
+            },
+            {
+                "title": "Sistema",
+                "items": [
+                    {
+                        "title": "Alertas",
+                        "icon": "notifications",
+                        "link": "/admin/alertas/alerta/",
+                    },
+                ],
+            },
+            {
+                "title": "Autenticación y Autorización",
+                "items": [
+                    {
+                        "title": "Usuarios",
+                        "icon": "person",
+                        "link": "/admin/auth/user/",
+                    },
+                    {
+                        "title": "Grupos",
+                        "icon": "lock",
+                        "link": "/admin/auth/group/",
+                    },
+                ],
+            },
+        ],
     },
 }

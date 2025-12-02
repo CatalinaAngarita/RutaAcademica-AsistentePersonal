@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Estudiante(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='estudiante')
-    codigo = models.CharField(max_length=20, unique=True, verbose_name='CÃ³digo de estudiante')
+    codigo = models.CharField(max_length=20, unique=True, verbose_name='Código de estudiante')
     carrera = models.CharField(max_length=100, verbose_name='Carrera')
     semestre_actual = models.IntegerField(default=1, verbose_name='Semestre actual')
     fecha_ingreso = models.DateField(auto_now_add=True, verbose_name='Fecha de ingreso')
